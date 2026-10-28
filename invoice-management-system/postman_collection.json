@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Invoice Management System API (invoicefile)",
+    "_postman_id": "c1f7a83d-3b2e-4b2a-a92c-1b7f0e9f8811",
+    "description": "Collection of API requests for the Invoice Management System Backend (invoicefile table)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3009/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invoices",
+      "item": [
+        {
+          "name": "Get Dashboard Counts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3009/api/invoices/counts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices", "counts"]
+            }
+          }
+        },
+        {
+          "name": "Get All Invoices (with Search & Filters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3009/api/invoices?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "isVerified", "value": "1", "disabled": true },
+                { "key": "isQueue", "value": "true", "disabled": true },
+                { "key": "search", "value": "Acme", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Invoice By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3009/api/invoices/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Invoice Record",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"Supplier_Invoice_Test.pdf\",\n  \"fileUrl\": \"/uploads/invoices/Supplier_Invoice_Test.pdf\",\n  \"invoiceJson\": \"{\\\"vendor\\\":\\\"Acme Corp\\\",\\\"amount\\\":15000}\",\n  \"isVerified\": \"0\",\n  \"storeId\": 101,\n  \"expenseId\": 201,\n  \"overInvoice\": \"false\",\n  \"totalInvoice\": 1,\n  \"folderPath\": \"uploads/invoices\",\n  \"skipInvoices\": \"false\",\n  \"IsAiIssue\": \"false\",\n  \"isQueue\": \"false\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3009/api/invoices",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "Update Invoice Record",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isVerified\": \"1\",\n  \"overInvoice\": \"true\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3009/api/invoices/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Invoice Record",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3009/api/invoices/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Uploads",
+      "item": [
+        {
+          "name": "Upload Invoice PDF",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "storeId",
+                  "value": "101",
+                  "type": "text"
+                },
+                {
+                  "key": "expenseId",
+                  "value": "201",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3009/api/invoices/upload",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3009",
+              "path": ["api", "invoices", "upload"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
